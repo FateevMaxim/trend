@@ -67,13 +67,13 @@ class DashboardController extends Controller
 
     public function archive ()
     {
-            $tracks = ClientTrackList::query()
-                ->leftJoin('track_lists', 'client_track_lists.track_code', '=', 'track_lists.track_code')
-                ->select( 'client_track_lists.track_code', 'client_track_lists.detail', 'client_track_lists.created_at',
-                    'track_lists.to_china','track_lists.to_almaty','track_lists.to_client','track_lists.client_accept','track_lists.status')
-                ->where('client_track_lists.user_id', Auth::user()->id)
-                ->where('client_track_lists.status', '=', 'archive')
-                ->get();
+        $tracks = ClientTrackList::query()
+            ->leftJoin('track_lists', 'client_track_lists.track_code', '=', 'track_lists.track_code')
+            ->select( 'client_track_lists.track_code', 'client_track_lists.detail', 'client_track_lists.created_at',
+                'track_lists.to_china','track_lists.to_almaty','track_lists.to_client','track_lists.client_accept','track_lists.status')
+            ->where('client_track_lists.user_id', Auth::user()->id)
+            ->where('client_track_lists.status', '=', 'archive')
+            ->get();
         $config = Configuration::query()->select('address', 'title_text', 'address_two')->first();
             $count = count($tracks);
             return view('dashboard')->with(compact('tracks', 'count', 'config'));
